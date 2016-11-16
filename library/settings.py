@@ -55,9 +55,6 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'authtools.User'
 
-if DJANGO_MODE == 'local':
-    INSTALLED_APPS += ('debug_toolbar',)
-    
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
