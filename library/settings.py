@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'users',
 ]
 
+if DJANGO_MODE == 'local':
+    INSTALLED_APPS += ('debug_toolbar',)
+
 AUTH_USER_MODEL = 'authtools.User'
 
 MIDDLEWARE_CLASSES = [
@@ -64,9 +67,13 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'stronghold.middleware.LoginRequiredMiddleware',
 ]
+
+if DJANGO_MODE == 'local':
+    MIDDLEWARE_CLASSES += 
+    (    'debug_toolbar.middleware.DebugToolbarMiddleware',)
+
 
 ROOT_URLCONF = 'library.urls'
 
