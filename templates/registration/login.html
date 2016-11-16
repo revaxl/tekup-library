@@ -1,0 +1,15 @@
+{% load material_form %}
+<html>
+	<head>
+		
+	</head>
+	<body>
+		<h1>login</h1>
+		<form action="" method="POST">
+			{% csrf_token %}
+			{% form form=form %} {% endform %}
+			<input type="hidden" name="next" value="/" />
+			<input type="submit">
+		</form>
+	</body>
+</html>

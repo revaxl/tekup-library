@@ -13,9 +13,30 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+from .views import home, contactus
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+	url(r'^$', home, name="index"),
+    url(r'^admin/', admin.site.urls, name="admin"),
+    url(r'^u/', include('users.urls', namespace="users")),
+    url(r'^accounts/', include('authtools.urls')),
+    url(r'^books/', include('books.urls', namespace='books')) ,
+    url(r'^staff/', include('staff.urls', namespace='staff')),
+    url(r'^contact/', contactus, name='contact'),
+    url(r'^ratings/', include('star_ratings.urls', namespace='ratings', app_name='ratings')),
+
 ]
+
+# urlpatterns = [
+#     url(r'^$', homepage, name='index'),
+#     url(r'^register/', register_view, name='register'),
+#     url(r'^login/', login_view, name='login'),
+#     url(r'^logout/', logout_view, name='logout'),
+#     url(r'^u/', include('users.urls', namespace="users")),
+#     url(r'^admin/', admin.site.urls),
+#     url(r'^books/', include('books.urls', namespace='books')) ,
+#     url(r'^staff/', include('staff.urls', namespace='staff')),
+#     url(r'^contact/', contactus, name='contact'),
+#     url(r'^ratings/', include('star_ratings.urls', namespace='ratings', app_name='ratings')),

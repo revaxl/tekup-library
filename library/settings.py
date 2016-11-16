@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'material',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +45,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authtools',
+    'crispy_forms',
+    'star_ratings',
+    'stronghold',
+    'books',
+    'staff',
+    'users',
 ]
+
+AUTH_USER_MODEL = 'authtools.User'
 
 if DJANGO_MODE == 'local':
     INSTALLED_APPS += ('debug_toolbar',)
@@ -58,6 +67,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'stronghold.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'library.urls'
@@ -65,7 +76,7 @@ ROOT_URLCONF = 'library.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -151,3 +162,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 LOGIN_URL = '/login/'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+STRONGHOLD_DEFAULTS = True
+
+STRONGHOLD_PUBLIC_NAMED_URLS = ('admin',)
