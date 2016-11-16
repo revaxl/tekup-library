@@ -11,3 +11,4 @@ uWSGI==2.0.7
 dj-database-url==0.4.1
 django-authtools==1.5.0
 dj-database-url==0.4.1
+pendulum==0.6.5
