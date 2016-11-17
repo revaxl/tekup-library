@@ -6,7 +6,7 @@ from django.views.generic.edit import  UpdateView
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 """local project import"""
-from authtools.forms import UserCreationForm
+from .forms import updateProfile
 
 
 @public
@@ -15,21 +15,15 @@ def profile(request, id=None):
 
 
 def update(request, id=None):
-    form = UpdateForm(request.POST or None, instance = request.user)
-    form2 = VisitorForm(request.POST or None, instance = request.user.visitor)
-    if form.is_valid() and form2.is_valid():
-        cin = form2.cleaned_data.get('cin')
-        first_name = form.cleaned_data.get('first_name')
-        last_name = form.cleaned_data.get('last_name')
+    form = updateProfile(request.POST or None, instance = request.user)
+    if form.is_valid():
+        name = form.cleaned_data.get('name')
         user = form.save(commit=False)
-        user.first_name = first_name
-        user.last_name = last_name
+        user.name = name
         user.save()
-        return redirect(user.visitor.get_absolute_url())
+        return redirect(reverse('index'))
     context = {
         "form" : form,
-        "form2" : form2,
-        "title" : "Update Profile"
     }
     return render(request, 'form.html', context)
 
